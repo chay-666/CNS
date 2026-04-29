@@ -111,6 +111,11 @@ public class BlowfishExample {
 
 
 // ===== Experiment 4: Blowfish with KeyTool (Java) =====
+
+
+keytool -genseckey -alias mykey -keyalg Blowfish -keysize 128 -storetype JCEKS -keystore mykeystore.jks
+
+
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import java.io.FileInputStream;
