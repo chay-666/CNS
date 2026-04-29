@@ -318,3 +318,52 @@ public class DES {
         return s.toString();
     }
 }
+
+
+
+
+
+RSA
+
+import java.math.BigInteger;
+import java.util.Scanner;
+
+public class RSA {
+    public static void main(String[] args) {
+
+        BigInteger p = new BigInteger("61");
+        BigInteger q = new BigInteger("53");
+
+        BigInteger n = p.multiply(q);
+
+        BigInteger phi = p.subtract(BigInteger.ONE)
+                          .multiply(q.subtract(BigInteger.ONE));
+
+        BigInteger e = new BigInteger("17");
+
+        BigInteger d = e.modInverse(phi);
+
+        System.out.println("Public Key  (e, n): (" + e + ", " + n + ")");
+        System.out.println("Private Key (d, n): (" + d + ", " + n + ")");
+
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter Message: ");
+        String msg = sc.nextLine();
+
+        BigInteger[] cipher = new BigInteger[msg.length()];
+        System.out.println("\nCipher Text:");
+        for (int i = 0; i < msg.length(); i++) {
+            cipher[i] = BigInteger.valueOf(msg.charAt(i)).modPow(e, n);
+            System.out.print(cipher[i] + " ");
+        }
+
+        String dec = "";
+        for (BigInteger c : cipher) {
+            dec += (char) c.modPow(d, n).intValue();
+        }
+
+        System.out.println("\n\nDecrypted Message: " + dec);
+
+        sc.close();
+    }
+}
